@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick Image from File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared.css') }}">
+</head>
+<body>
+    <div class="login-box">
+        <p>Pick Student Image</p>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="user-box">
+                <input type="text" id="first_name" name="first_name" required>
+                <label for="first_name">First Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" id="last_name" name="last_name" required>
+                <label for="last_name">Last Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" id="student_number" name="student_number" required>
+                <label for="student_number">Student Number</label>
+            </div>
+            <div class="user-box">
+                <input type="text" id="class_name" name="class_name" required>
+                <label for="class_name">Class Name</label>
+            </div>
+            <div class="user-box">
+                <input type="file" name="file" required>
+                <label for="file">Upload Image</label>
+            </div>
+            <a href="#" onclick="this.closest('form').submit();return false;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Upload
+            </a>
+        </form>
+        <nav>
+            <a href="{{ url_for('home') }}">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Home
+            </a>
+        </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

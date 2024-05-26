@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Classes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared.css') }}">
+</head>
+<body class="min-h-screen bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-500">
+    <div class="login-box">
+        <p>Manage Classes</p>
+        <!-- Add class member form -->
+        <form action="{{ url_for('add_class_member') }}" method="POST">
+            <input type="hidden" name="class_name" value="{{ class_name }}">
+            <div class="user-box">
+                <input type="text" name="first_name" id="first_name" placeholder=" " required>
+                <label for="first_name">Enter First Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="last_name" id="last_name" placeholder=" " required>
+                <label for="last_name">Enter Last Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="student_number" id="student_number" placeholder=" " required>
+                <label for="student_number">Enter Student Number</label>
+            </div>
+            <a href="#" onclick="this.closest('form').submit();return false;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Add Member
+            </a>
+        </form>
+
+        <!-- List of class members -->
+        <h2>Class Members</h2>
+        <ul>
+            {% for member in class_members %}
+                <li>
+                    {{ member.first_name }} {{ member.last_name }} ({{ member.student_number }})
+                    <form action="{{ url_for('edit_class_member', class_name=class_name, member_id=member.id) }}" method="POST">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="{{ url_for('remove_class_member', class_name=class_name, member_id=member.id) }}" method="POST">
+                        <button type="submit">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- File upload form -->
+        <form action="{{ url_for('manage_classes') }}" method="POST" enctype="multipart/form-data">
+            <div class="user-box">
+                <input type="text" name="class_name" id="class_name" placeholder=" " required>
+                <label for="class_name">Enter Class Name</label>
+            </div>
+            <div class="user-box">
+                <input type="file" name="file" id="file" required>
+                <label for="file"> </label>
+            </div>
+            <a href="#" onclick="this.closest('form').submit();return false;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Save Changes
+            </a>
+        </form>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Navigation -->
+        <nav>
+            <a href="{{ url_for('home') }}">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Home
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

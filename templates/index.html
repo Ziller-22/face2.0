@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="min-h-screen bg-ede8f5 dark:bg-3d52a0 text-zinc-900 dark:text-white transition-colors duration-500" x-data="darkModeData()" x-init="initializeDarkMode()">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" defer></script>
+    <script>
+        function darkModeData() {
+            return {
+                darkMode: false,
+                initializeDarkMode() {
+                    this.darkMode = JSON.parse(localStorage.getItem('darkMode')) ?? false;
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                },
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                }
+            }
+        }
+    </script>
+   
+    <header class="bg-gradient-to-r from-blue-400 to-blue-600 dark:from-blue-800 dark:to-blue-900 text-center py-16 transition-colors duration-500">
+        <h1 class="text-3xl font-bold text-white animate-pulse">Welcome to FaceAttend</h1>
+        <p class="text-xl mt-4 text-white animate-pulse delay-200">Your reliable facial recognition attendance system</p>
+    </header>
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <a href="{{ url_for('manage_classes') }}" class="card">
+                <img src="icons/capture.svg" alt="Manage Classes" class="icon">
+                <div class="card-text">Manage Classes</div>
+            </a>
+            <a href="{{ url_for('capture') }}" class="card">
+                <img src="icons/icon2.png" alt="Capture Image" class="icon">
+                <div class="card-text">Capture Image</div>
+            </a>
+            <a href="{{ url_for('select_class') }}" class="card">
+                <img src="icons/icon3.png" alt="Track Attendance" class="icon">
+                <div class="card-text">Track Attendance</div>
+            </a>
+            <a href="{{ url_for('pick') }}" class="card">
+                <img src="icons/icon4.png" alt="Upload Image" class="icon">
+                <div class="card-text">Upload Image</div>
+            </a>
+        </div>
+    </main>
+    <footer class="bg-adbbda dark:bg-8697c4 text-center py-4 transition-colors duration-500">
+        <p>© 2023 FaceAttend. All rights reserved.</p>
+    </footer>
+</body>
+</html>

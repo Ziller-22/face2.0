@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Tracking Attendance for Class: {{ class_name }}</h1>
+    </header>
+    <div class="container">
+        <div style="display: flex;">
+            <div>
+                <img src="{{ url_for('video_feed', class_name=class_name) }}" width="640px" height="480px">
+            </div>
+            <div>
+                <h2>Attendance List</h2>
+                <ul id="attendance-list"></ul>
+            </div>
+        </div>
+        <div class="export-options">
+            <button id="export-btn">Export Attendance</button>
+            <div id="export-options" class="dropdown">
+                <button class="dropbtn">Export as...</button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="exportAttendance('pdf')">PDF</a>
+                    <a href="#" onclick="exportAttendance('excel')">Excel</a>
+                    <a href="#" onclick="showEmailPrompt()">Email</a>
+                </div>
+            </div>
+        </div>
+        <div id="email-prompt" class="email-prompt">
+            <label for="email">Enter your email:</label>
+            <input type="email" id="email" name="email">
+            <button onclick="sendEmail()">Send</button>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

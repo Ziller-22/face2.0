@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Class</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared.css') }}">
+</head>
+<body>
+    <div class="login-box">
+        <p>Select Class for Attendance Tracking</p>
+        <form method="POST">
+            <div class="user-box">
+                <select id="class_name" name="class_name" required>
+                    {% for class in classes %}
+                        <option value="{{ class }}">{{ class }}</option>
+                    {% endfor %}
+                </select>
+                <label for="class_name">Class Name</label>
+            </div>
+            <a href="#" onclick="this.closest('form').submit();return false;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Select
+            </a>
+        </form>
+        <nav>
+            <a href="{{ url_for('home') }}">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Home
+            </a>
+        </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
